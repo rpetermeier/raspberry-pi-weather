@@ -2,13 +2,15 @@ require 'rubygems'
 require 'rufus/scheduler'
 
 require_relative 'mock-meter.rb'
+require_relative 'meter.rb'
 
 class WeatherStation
   
   attr_accessor :meter
   
   def initialize
-    @meter = MockMeter.new
+    # @meter = MockMeter.new
+    @meter = Meter.new
     @meter_values = Array.new
   end
   
@@ -29,7 +31,7 @@ class WeatherStation
   def read_and_process_meter_value
     now = Time.now
     if @meter_values.size > 0 then
-      if now - @meter_values[0].timestamp >= 2 * 60 then
+      if now - @meter_values[0].timestamp >= 1 * 60 then
         persist_meter_values(@meter_values)
         @meter_values = Array.new
       end
@@ -42,12 +44,16 @@ class WeatherStation
   end
   
   def persist_meter_values(meter_values)
+    print_meter_values(meter_values)
+  end
+  
+  def print_meter_values(meter_values)
     puts "-----"
     puts "#{Time.now.asctime}: printing #{meter_values.size} values..."
     meter_values.each do |mv|
       puts "  #{mv}"
     end
-    puts "-----" 
+    puts "-----"
   end
   
 end
@@ -60,8 +66,12 @@ class MeterValue
     self.timestamp = timestamp
   end
   
-  def to_s
-    "#{value}\t#{timestamp.asctime}"
+  def to_s(debug = false)
+    if (debug) then
+      "#{value}\t#{timestamp.asctime}"
+    else
+      value.to_s
+    end 
   end
 
 end
