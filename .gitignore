@@ -1,2 +1,5 @@
 #ignore thumbnails created by windows
 Thumbs.db
+
+# ignore .project files by Aptana
+.project
