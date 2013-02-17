@@ -57,7 +57,7 @@ img.thumb {
 }
 /* /Alignment of img and span */
 
-span#license {
+span#license, .text-small {
 	font-size: 0.75em;
 }
 
