@@ -1,4 +1,4 @@
 #!/bin/bash
 
-ruby src/shutdown.rb
+ruby src/startup.rb &
 exit $?

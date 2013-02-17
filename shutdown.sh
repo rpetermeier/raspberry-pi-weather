@@ -1,4 +1,4 @@
 #!/bin/bash
 
-ruby src/weather_station.rb
+ruby src/shutdown.rb
 exit $?
