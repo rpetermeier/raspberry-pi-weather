@@ -4,6 +4,12 @@ require 'rufus/scheduler'
 require_relative 'mock-meter.rb'
 require_relative 'meter.rb'
 
+# TODO: Change to 30 * 60 (create a file every 30 minutes)
+PERSIST_INTERVAL = 5 * 60
+
+# TODO: change to 1m
+METER_READ_INTERVAL = '30s'
+
 class WeatherStation
   
   attr_accessor :meter
@@ -17,8 +23,7 @@ class WeatherStation
   def start
     zero = Time.utc(1970, "jan", 1, 0, 0, 0)
     scheduler = Rufus::Scheduler.start_new
-    # TODO: change to 1m
-    scheduler.every '5s' do
+    scheduler.every METER_READ_INTERVAL do
       read_and_process_meter_value
     end
 
@@ -29,8 +34,7 @@ class WeatherStation
   def read_and_process_meter_value
     now = Time.now
     if @meter_values.size > 0 then
-      # TODO: Change to 30 * 60 (create a file every 30 minutes)
-      if now - @meter_values[0].timestamp >= 1 * 60 then
+      if now - @meter_values[0].timestamp >= PERSIST_INTERVAL then
         persist_meter_values(@meter_values)
         @meter_values = Array.new
       end
@@ -43,9 +47,6 @@ class WeatherStation
   end
   
   def persist_meter_values(meter_values)
-    # TODO: Delete printing of values
-    print_meter_values(meter_values)
-    
     Dir.mkdir("../out") unless FileTest.exists?("../out")
     
     first_ts = meter_values[0].timestamp
@@ -58,16 +59,6 @@ class WeatherStation
       end
     end
     File.rename("../out/#{filename_tmp}", "../out/#{filename}")
-  end
-  
-  # TODO: Delete printing of values
-  def print_meter_values(meter_values)
-    puts "-----"
-    puts "#{Time.now.asctime}: printing #{meter_values.size} values..."
-    meter_values.each do |mv|
-      puts "  #{mv}"
-    end
-    puts "-----"
   end
   
 end
