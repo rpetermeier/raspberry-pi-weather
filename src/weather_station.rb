@@ -120,6 +120,7 @@ private
           end
         end
         File.rename("../out/#{filename_tmp}", "../out/#{filename}")
+        @log.log "persist_meter_values: Persisted #{meter_values.size} values to file #{filename}"
       end
     end
     
