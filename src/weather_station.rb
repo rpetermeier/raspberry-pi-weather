@@ -2,6 +2,7 @@ require 'socket'
 require 'rubygems'
 require 'rufus/scheduler'
 
+require_relative 'platform.rb'
 require_relative 'mock-meter.rb'
 require_relative 'meter.rb'
 
@@ -15,6 +16,8 @@ module ImperialWeatherControl
   # METER_READ_INTERVAL = '30s'
   METER_READ_INTERVAL = '1m'
   
+  IS_ALIVE_INTERVAL = '60s'
+  
   MANAGEMENT_PORT = 30023
   
   class WeatherStation
@@ -22,8 +25,11 @@ module ImperialWeatherControl
     attr_accessor :meter
     
     def initialize
-      # @meter = MockMeter.new
-      @meter = MockMeter.new
+      if Platform.linux? then
+        @meter = Meter.new
+      else
+        @meter = MockMeter.new
+      end
       @meter_values = Array.new
     end
     
@@ -34,9 +40,9 @@ module ImperialWeatherControl
         read_and_process_meter_value
       end
       
-      # @is_alive_job = scheduler.every '5s' do
-        # puts "I am still alive..."
-      # end      
+      @is_alive_job = scheduler.every IS_ALIVE_INTERVAL do
+        puts "WeatherStation: I am still alive..."
+      end      
       start_tcp_mgmt_server
       puts "start: periodical reading of meter values has been scheduled. Raspberry Pi weather station is operational."
       scheduler.join
