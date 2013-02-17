@@ -35,17 +35,35 @@ img.thumb {
 	width: 256px;
 }
 
-img#banner-galactic-empire {
+#intro {
+    width: 350px;
+    padding: 5px;
+    position: relative;
+}
+#intro img {
+	position: absolute;
+	top: 50%;
+	margin-top: -112px;  /* = image height div 2 */
 	vertical-align: top;
 	width: 120px;
 }
-
-span#intro {
-	width: 480px;
+#intro span {
+    margin-left: 128px;  /* = image width + 8 */
+    display: block;    
 }
 
 span#license {
 	font-size: 0.75em;
+}
+
+#images {
+	margin-top: 50px;
+	padding: 10px;
+	border: 1px solid Silver;
+}
+#images img {
+	vertical-align: middle;
+	margin: 10px;
 }
 
 a:link { font-weight:normal; color:DarkRed; text-decoration:none; }
