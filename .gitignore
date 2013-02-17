@@ -3,3 +3,6 @@ Thumbs.db
 
 # ignore .project files by Aptana
 .project
+
+# ignore out dir
+out
