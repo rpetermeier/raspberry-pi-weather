@@ -27,12 +27,29 @@ h1 {
 
 body {
 	font-family: sans-serif;
+	background: #000;
+	color: Silver;
 }
 
 img.thumb {
 	width: 256px;
 }
 
+img#banner-galactic-empire {
+	vertical-align: top;
+	width: 120px;
+}
+
+span#intro {
+	width: 480px;
+}
+
 span#license {
 	font-size: 0.75em;
 }
+
+a:link { font-weight:normal; color:DarkRed; text-decoration:none; }
+a:visited { font-weight:normal; color:Maroon; text-decoration:none; }
+a:focus { font-weight:normal; color:FireBrick; text-decoration:underline; }
+a:hover { font-weight:normal; color:FireBrick; text-decoration:none; }
+a:active { font-weight:normal; color:Crimson; text-decoration:underline; }
