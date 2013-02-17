@@ -40,18 +40,20 @@ img.thumb {
    http://stackoverflow.com/questions/6524029/vertical-align-an-image-and-a-multiline-text
 */
 #intro {
-    width: 350px;
+	margin-top: 20px;
+    width: 500px;
     padding: 5px;
     position: relative;
 }
 #intro img {
 	position: absolute;
 	top: 50%;
-	margin-top: -112px;  /* = image height div 2 */
+	margin-top: -94px;  /* = image height div 2 */
 	vertical-align: top;
-	width: 120px;
+	width: 100px;
 }
 #intro span {
+	text-align: justify;
     margin-left: 128px;  /* = image width + 8 */
     display: block;    
 }
