@@ -28,6 +28,7 @@ module ImperialWeatherControl
     end
     
     def start
+      puts "start: Raspberry Pi weather station is starting..."
       scheduler = Rufus::Scheduler.start_new
       @reader_job = scheduler.every METER_READ_INTERVAL do
         read_and_process_meter_value
@@ -35,9 +36,9 @@ module ImperialWeatherControl
       
       # @is_alive_job = scheduler.every '5s' do
         # puts "I am still alive..."
-      # end      
+      # end      
       start_tcp_mgmt_server
-      puts "start: periodical reading of meter values has been scheduled."
+      puts "start: periodical reading of meter values has been scheduled. Raspberry Pi weather station is operational."
       scheduler.join
     end
 
@@ -47,16 +48,16 @@ private
       puts "start_tcp_mgmt_server: Starting TCP server for receiving management commands..."
       server = TCPServer.new("localhost", MANAGEMENT_PORT)
       @server_thread = Thread.start do
+        puts "start_tcp_mgmt_server: Accepting connections on port #{MANAGEMENT_PORT}..."
         loop do
-          puts "Accepting connections on port #{MANAGEMENT_PORT}..."
           client = server.accept
-          puts 'A client has connected, reading command'
+          puts '<mgmt interface>: a client has connected, reading command...'
           command = client.gets 
           client.close
           on_mgmt_command command
         end
       end
-      puts "start_tcp_mgmt_server:: TCP Server is now listening on port #{MANAGEMENT_PORT}"
+      puts "start_tcp_mgmt_server:: TCP server is now listening on port #{MANAGEMENT_PORT}"
     end
     
     def on_mgmt_command(command)
