@@ -17,13 +17,11 @@ class WeatherStation
   def start
     zero = Time.utc(1970, "jan", 1, 0, 0, 0)
     scheduler = Rufus::Scheduler.start_new
+    # TODO: change to 1m
     scheduler.every '5s' do
       read_and_process_meter_value
     end
-    
-    scheduler.every '15s' do
-      puts "#{Time.now.asctime}: still alive..."
-    end
+
     puts "start: periodical reading of meter values has been scheduled."
     scheduler.join
   end
@@ -31,6 +29,7 @@ class WeatherStation
   def read_and_process_meter_value
     now = Time.now
     if @meter_values.size > 0 then
+      # TODO: Change to 30 * 60 (create a file every 30 minutes)
       if now - @meter_values[0].timestamp >= 1 * 60 then
         persist_meter_values(@meter_values)
         @meter_values = Array.new
@@ -40,14 +39,28 @@ class WeatherStation
   end
   
   def build_meter_value(meter_value_raw, now)
-    MeterValue.new("#{(now.to_i) * 1000}\t#{meter_value_raw}", now)
+    MeterValue.new(meter_value_raw, now)
   end
   
   def persist_meter_values(meter_values)
+    # TODO: Delete printing of values
     print_meter_values(meter_values)
-    # filename = meter_values[0].timestamp
+    
+    Dir.mkdir("../out") unless FileTest.exists?("../out")
+    
+    first_ts = meter_values[0].timestamp
+    first_ts.gmtime
+    filename = first_ts.strftime("%Y-%m-%d_%H-%M.txt")
+    filename_tmp = filename + ".tmp"
+    File.open("../out/#{filename_tmp}", "w:utf-8") do |file|
+      meter_values.each do |mv|
+        file.write "#{(mv.timestamp.to_i * 1000).to_s}\t#{mv.value}\n"
+      end
+    end
+    File.rename("../out/#{filename_tmp}", "../out/#{filename}")
   end
   
+  # TODO: Delete printing of values
   def print_meter_values(meter_values)
     puts "-----"
     puts "#{Time.now.asctime}: printing #{meter_values.size} values..."
@@ -77,5 +90,6 @@ class MeterValue
 
 end
 
+Dir.chdir(File.dirname(__FILE__))
 ws = WeatherStation.new
 ws.start
