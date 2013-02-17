@@ -35,6 +35,10 @@ img.thumb {
 	width: 256px;
 }
 
+/*
+   Alignment of img and span based on 
+   http://stackoverflow.com/questions/6524029/vertical-align-an-image-and-a-multiline-text
+*/
 #intro {
     width: 350px;
     padding: 5px;
@@ -51,6 +55,7 @@ img.thumb {
     margin-left: 128px;  /* = image width + 8 */
     display: block;    
 }
+/* /Alignment of img and span */
 
 span#license {
 	font-size: 0.75em;
