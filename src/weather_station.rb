@@ -45,6 +45,7 @@ class WeatherStation
   
   def persist_meter_values(meter_values)
     print_meter_values(meter_values)
+    # filename = meter_values[0].timestamp
   end
   
   def print_meter_values(meter_values)
