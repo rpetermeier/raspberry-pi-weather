@@ -7,9 +7,11 @@ require_relative 'meter.rb'
 
 module ImperialWeatherControl
 
+  # Persist values every 30 minutes
   # PERSIST_INTERVAL = 5 * 60
   PERSIST_INTERVAL = 30 * 60
-  
+
+  # Read the meter every minute  
   # METER_READ_INTERVAL = '30s'
   METER_READ_INTERVAL = '1m'
   
