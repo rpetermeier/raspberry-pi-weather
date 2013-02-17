@@ -1,6 +1,7 @@
 require 'socket'
+require_relative 'weather_station.rb'
 
-socket = TCPSocket.new 'localhost', 30023
+socket = TCPSocket.new 'localhost', ImperialWeatherControl::MANAGEMENT_PORT
 
 puts "Socket opened, sending :shutdown command"
 socket.puts ":shutdown"

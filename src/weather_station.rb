@@ -7,11 +7,11 @@ require_relative 'meter.rb'
 
 module ImperialWeatherControl
 
-  # TODO: Change to 30 * 60 (create a file every 30 minutes)
-  PERSIST_INTERVAL = 5 * 60
+  # PERSIST_INTERVAL = 5 * 60
+  PERSIST_INTERVAL = 30 * 60
   
-  # TODO: change to 1m
-  METER_READ_INTERVAL = '30s'
+  # METER_READ_INTERVAL = '30s'
+  METER_READ_INTERVAL = '1m'
   
   MANAGEMENT_PORT = 30023
   
@@ -21,7 +21,7 @@ module ImperialWeatherControl
     
     def initialize
       # @meter = MockMeter.new
-      @meter = Meter.new
+      @meter = MockMeter.new
       @meter_values = Array.new
     end
     
@@ -31,9 +31,9 @@ module ImperialWeatherControl
         read_and_process_meter_value
       end
       
-      @is_alive_job = scheduler.every '5s' do
-        puts "I am still alive..."
-      end      
+      # @is_alive_job = scheduler.every '5s' do
+        # puts "I am still alive..."
+      # end      
       start_tcp_mgmt_server
       puts "start: periodical reading of meter values has been scheduled."
       scheduler.join
@@ -68,8 +68,7 @@ private
     def shutdown
       puts "shutdown: Received :shutdown command via TCP. Shutting down..."
       @reader_job.unschedule
-      @is_alive_job.unschedule
-      puts 'shutdown: Jobs have been unscheduled. Flushing any pending data records to a file...'
+      # @is_alive_job.unschedule      puts 'shutdown: Jobs have been unscheduled. Flushing any pending data records to a file...'
       persist_meter_values(@meter_values)
       puts 'shutdown: Data has been flushed to file. Calling exit...'
 
@@ -133,7 +132,3 @@ private
   end
 
 end
-
-Dir.chdir(File.dirname(__FILE__))
-ws = ImperialWeatherControl::WeatherStation.new
-ws.start
