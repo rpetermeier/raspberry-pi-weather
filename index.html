@@ -7,7 +7,7 @@
 		<meta http-equiv="pragma" content="no-cache" />
 		<meta http-equiv="expires" content="0" />
 
-		<title>Imperial Weather Station on Rasperry Pi</title>
+		<title>IWS-11A-RP: Imperial Weather Station on Rasperry Pi</title>
 		<link type="text/css" href="css/raspberry-pi.css" rel="stylesheet" />
 		<script type="text/javascript" src="js/logic.js"></script>
 		<script type="text/javascript">
@@ -32,6 +32,18 @@
 		<a href="img/iws-04.jpg"><img src="img/iws-04-thumb.jpg" class="thumb" alt=""/></a>
 		<br/>
 		Notice the SHT-21 sensor that is connected to the main unit via the gray cable that is led through the upper hatch.
+	</p>
+	<p class="data-sheet">
+		<h2>What does it do?</h1>
+		<ul>
+			<li><span class="data-sheet">The IWS-11A-RP records a metered value every 60 seconds and stores it for later analysis</span></li>
+			<li><span class="data-sheet">The IWS-11A-RP offers a TCP interface for starting and stopping the measurement</li>
+		</ul>
+		<h2>What does it not (yet) do?</h1>
+		<ul>
+			<li><span class="data-sheet">The IWS-11A-RP does not yet provide HTML/Javascript-based analysis of the recorded data. This functionality is under development and will probably be implemented using the Python programming language, while the existing backend processing functionality will continue to be implemented in the Ruby programming language</span></li>
+			<li><span class="data-sheet">The IWS-11A-RP does not yet offer a REST API for retrieving measurement values and/or managing the application</span></li>
+		</ul>
 	</p>
 	<p>
 		Browse the <a href="https://github.com/rpetermeier/raspberry-pi-weather" target="source-code">source code.</a>

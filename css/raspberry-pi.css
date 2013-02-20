@@ -6,7 +6,7 @@
   width: 120px;
 }
 
-h1 {
+h1, h2 {
 	font-family: sans-serif;
 }
 
@@ -55,7 +55,7 @@ img.thumb {
 #intro span {
 	text-align: justify;
     margin-left: 128px;  /* = image width + 8 */
-    display: block;    
+    display: block;
 }
 /* /Alignment of img and span */
 
@@ -71,6 +71,12 @@ span#license, .text-small {
 #images img {
 	vertical-align: middle;
 	margin: 10px;
+}
+
+span.data-sheet {
+	width: 650px;
+	display: block;
+	text-align: justify;
 }
 
 a:link { font-weight:normal; color:DarkRed; text-decoration:none; }
