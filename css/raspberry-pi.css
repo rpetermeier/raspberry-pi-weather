@@ -79,6 +79,10 @@ span.data-sheet {
 	text-align: justify;
 }
 
+span.tt {
+	font-family: Courier New, monospaced;
+}
+
 a:link { font-weight:normal; color:DarkRed; text-decoration:none; }
 a:visited { font-weight:normal; color:Maroon; text-decoration:none; }
 a:focus { font-weight:normal; color:FireBrick; text-decoration:underline; }
